@@ -16,6 +16,7 @@ $ composer install
 $ cp .env.example .env
 $ php artisan migrate #antes de rodar este comando verifique sua configuracao com banco em .env
 $ php artisan key:generate
+$ php artisan passport:install
 $ php artisan serve
 ```
 Acesssar pela url: http://localhost:8000
