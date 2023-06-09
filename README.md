@@ -20,3 +20,57 @@ $ php artisan passport:install
 $ php artisan serve
 ```
 Acesssar pela url: http://localhost:8000
+
+## End points:
+
+##### API de Login: (POST) /api/login 
+```bash
+{
+    "email": "usuario@email.com",
+    "password": "123456"
+}
+```
+##### API de Logout: (POST) /api/logout 
+```bash
+{
+}
+```
+#### API para registrar um novo usuário: (POST) /api/user/register
+```bash
+{
+    "nome": "Usuario da Silva",
+    "email": "usuario@email.com",
+    "password": "123456"
+}
+```
+##### API para registrar uma nova task: (POST) /api/task/register
+```bash
+{
+    "title": "Task exemplo",
+    "description": "Task exemplo para teste..."
+}
+```
+##### API para alterar uma task: (PUT) /api/task/update
+```bash
+{
+    "id": "1",
+    "title": "Task exemplo alterada",
+    "description": "Task exemplo para teste alterada"
+}
+```
+##### API para listar tasks com paginação: (GET) /api/task/get?per_page=5&page=1&search=&filter=2
+```bash
+{
+}
+```
+##### API para prazer uma task pelo Id: (GET) /api/task/get/3
+```bash
+{
+}
+```
+##### API para excluir uma task pelo Id: (DELETE) /api/task/delete/3
+```bash
+{
+}
+```
+
