@@ -22,9 +22,18 @@ Route::middleware(['auth:api'])->group(function() {
 
     Route::post('task/register', [TaskController::class, 'register']);
     Route::get('task/get', [TaskController::class, 'get']);
-    Route::get('task/get/{id}', [TaskController::class, 'getById']);
-    Route::put('task/update', [TaskController::class, 'update']);
-    Route::delete('task/delete/{id}', [TaskController::class, 'delete']);
+    Route::get('task/get/{task}', [TaskController::class, 'getTask'])->missing(function () {
+        return response()->json(['error' => 'task não encontrada'], 404);
+    });
+
+    Route::put('task/update/{task}', [TaskController::class, 'update'])->missing(function () {
+        return response()->json(['error' => 'task não encontrada'], 404);
+    });
+
+    Route::delete('task/delete/{task}', [TaskController::class, 'delete'])->missing(function () {
+        return response()->json(['error' => 'task não encontrada'], 404);
+    });
+
     Route::post('logout', [UsuarioController::class, 'logout']);
 
 });
