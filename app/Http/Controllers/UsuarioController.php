@@ -2,30 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
-    public function login(Request $request)
+    public function login(UserLoginRequest $userLoginRequest)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $params = $request->all();
-
-        if (auth()->attempt($params)) {
-
-            $user = auth()->user();
-            $token = $user->createToken('livros')->accessToken;
-
-            return response()->json(['usuario' => auth()->user(), 'token' => $token], 200);
-        } else {
+        if (!auth()->attempt($userLoginRequest->all())) {
             return response()->json(['Error!' => 'Invalid credentials!'], 401);
         }
+
+        return response()->json(['usuario' => auth()->user(), 'token' => auth()->user()->createToken('tasks')->accessToken], 200);
     }
 
     public function logout()
@@ -39,14 +30,8 @@ class UsuarioController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
         $user = User::create([
-            'name' => $request->nome,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
